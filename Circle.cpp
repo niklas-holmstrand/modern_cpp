@@ -4,7 +4,9 @@
 
 Circle::Circle(double r)
     : r_(r)
-{}
+{
+    static_assert ( M_PI != 3.14 , "PI only approx" );
+}
 
 Circle::Circle(const Circle & other)
 {
