@@ -8,10 +8,10 @@ Circle::Circle(double r)
     static_assert ( M_PI != 3.14 , "PI only approx" );
 }
 
-Circle::Circle(const Circle & other)
-{
-    r_ = other.getRadius();
-}
+//Circle::Circle(const Circle & other)
+//{
+//    r_ = other.getRadius();
+//}
 
 double Circle::getArea() const
 {
