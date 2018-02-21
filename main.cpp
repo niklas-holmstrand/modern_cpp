@@ -79,17 +79,23 @@ void findFirstShapeMatchingPredicate(const Collection& collection,
     }
 }
 
+template<class T, class... Arguments>
+std::shared_ptr<Shape> make_shape(Arguments&&... args)
+{
+    return make_shared<T>(forward<Arguments>(args)...);
+}
+
 int main()
 {
 
     Collection shapes = {
-        make_shared<Circle>(2.0),
-        make_shared<Circle>(3.0),
+        make_shape<Circle>(2.0),
+        make_shape<Circle>(3.0),
         nullptr,
-        make_shared<Circle>(4.0),
-        make_shared<Rectangle>(10.0, 5.0),
-        make_shared<Square>(3.0),
-        make_shared<Circle>(4.0)
+        make_shape<Circle>(4.0),
+        make_shape<Rectangle>(10.0, 5.0),
+        make_shape<Square>(3.0),
+        make_shape<Circle>(4.0)
     };
 
     printCollectionElements(shapes);

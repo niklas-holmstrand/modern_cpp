@@ -61,6 +61,7 @@ It should be >= 5.0
 18. variadic templates:
     Write a factory method which should work like std::make_shared.
     It should have below signature:
-        template<class DerivedType, class... Arguments> std::shared_ptr<Shape> make_shape(Arguments&&... args);
+        template<class DerivedType, class... Arguments>
+        std::shared_ptr<Shape> make_shape(Arguments&&... args);
     Inside, it should create a shared_ptr to DerivedType and pass all arguments into construtor of DerivedType via perfect forwarding.
         
