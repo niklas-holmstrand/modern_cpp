@@ -3,10 +3,18 @@
 #include <iostream>
 
 Circle::Circle(double r)
-    : r_(r)
+    : Circle(r, Color::Blue)
 {
     static_assert ( M_PI != 3.14 , "PI only approx" );
 }
+
+
+Circle::Circle(double r, Color c)
+    :r_(r), Shape(c)
+{
+}
+
+
 
 Circle::Circle(const Circle && other) :
     r_(std::move(other.r_))

@@ -6,7 +6,7 @@ class Square : public Rectangle
 {
 public:
     Square(double x);
-    Square(const Square & other) = default;
+    //Square(const Square & other) = default;
 //    Square(const Square && other);
 
     double getArea() const noexcept override;

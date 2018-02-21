@@ -12,10 +12,10 @@ private:
     Color c_ = Color::Blue;
 
 public:
-//    Shape(Shape && other);
-//    Shape() = defalt;
-//    Shape(Shape & other) = defalt;
-//    Shape() = defalt;
+    Shape(Shape && other) = default;
+    Shape() = default;
+    Shape(Shape & other) = default;
+    Shape(Color c);
 
     virtual ~Shape() {}
 

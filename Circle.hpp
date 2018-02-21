@@ -9,6 +9,8 @@ public:
     Circle(const Circle & other);// = default;
     Circle(const Circle && other);// = default;
 
+    Circle(double r, Color c_);
+
     double getArea() const  noexcept override;
     double getPerimeter() const noexcept override;
     double getRadius() const;
