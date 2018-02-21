@@ -6,7 +6,8 @@ class alignas(2) Circle final : public Shape
 {
 public:
     Circle(double r);
-    Circle(const Circle & other) = default;
+    Circle(const Circle & other);// = default;
+    Circle(const Circle && other);// = default;
 
     double getArea() const  noexcept override;
     double getPerimeter() const noexcept override;

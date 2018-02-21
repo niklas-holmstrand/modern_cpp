@@ -6,11 +6,11 @@ Rectangle::Rectangle(double x, double y)
       y_(y)
 {}
 
-//Rectangle::Rectangle(const Rectangle &other)
-//{
-//    x_ = other.getX();
-//    y_ = other.getY();
-//}
+Rectangle::Rectangle(const Rectangle && other):
+    x_(std::move(other.x_)),
+      y_(std::move(other.y_))
+{
+}
 
 double Rectangle::getArea() const noexcept
 {

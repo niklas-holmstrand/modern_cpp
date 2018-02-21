@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <memory>
 #include "Shape.hpp"
 #include "Rectangle.hpp"
 #include "Square.hpp"
@@ -9,9 +10,9 @@
 
 using namespace std;
 
-using Collection = vector<Shape*>;
+using Collection = vector<std::shared_ptr<Shape>>;
 
-bool sortByArea(Shape* first, Shape* second)
+bool sortByArea(std::shared_ptr<Shape> first, std::shared_ptr<Shape> second)
 {
     if(first == nullptr || second == nullptr)
     {
@@ -20,7 +21,7 @@ bool sortByArea(Shape* first, Shape* second)
     return (first->getArea() < second->getArea());
 }
 
-bool perimeterBiggerThan20(Shape* s)
+bool perimeterBiggerThan20(std::shared_ptr<Shape> s)
 {
     if(s)
     {
@@ -29,7 +30,7 @@ bool perimeterBiggerThan20(Shape* s)
     return false;
 }
 
-bool areaLessThan10(Shape* s)
+bool areaLessThan10(std::shared_ptr<Shape> s)
 {
     if(s)
     {
@@ -61,7 +62,7 @@ void printAreas(const Collection& collection)
 }
 
 void findFirstShapeMatchingPredicate(const Collection& collection,
-                                     bool (*predicate)(Shape* s),
+                                     bool (*predicate)(std::shared_ptr<Shape> s),
                                      std::string info)
 {
     auto iter = std::find_if(collection.begin(), collection.end(), predicate);
@@ -80,13 +81,13 @@ int main()
 {
 
     Collection shapes = {
-        new Circle(2.0),
-        new Circle(3.0),
+        make_shared<Circle>(2.0),
+        make_shared<Circle>(3.0),
         nullptr,
-        new Circle(4.0),
-        new Rectangle(10.0, 5.0),
-        new Square(3.0),
-        new Circle(4.0)
+        make_shared<Circle>(4.0),
+        make_shared<Rectangle>(10.0, 5.0),
+        make_shared<Square>(3.0),
+        make_shared<Circle>(4.0)
     };
 
     printCollectionElements(shapes);
@@ -99,8 +100,17 @@ int main()
     cout << "Areas after sort: " << std::endl;
     printAreas(shapes);
 
-    auto square = new Square(4.0);
+//    auto square = new Square(4.0);
+    auto square = make_shared<Square>(4.0);
     shapes.push_back(square);
+
+    auto circle = new Circle(4.0);
+    shapes.emplace_back(std::move(circle));
+
+    auto rectangle = new Rectangle(4.0, 2.6);
+//    std::shared_ptr<Rectangle> rectangle make_shared(Rectangle(4.0, 2.6))
+    delete rectangle;
+//    shapes.emplace_back(std::move(rectangle));
 
     findFirstShapeMatchingPredicate(shapes, perimeterBiggerThan20, "perimeter bigger than 20");
     findFirstShapeMatchingPredicate(shapes, areaLessThan10, "area less than 10");

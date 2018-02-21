@@ -12,6 +12,11 @@ private:
     Color c_ = Color::Blue;
 
 public:
+//    Shape(Shape && other);
+//    Shape() = defalt;
+//    Shape(Shape & other) = defalt;
+//    Shape() = defalt;
+
     virtual ~Shape() {}
 
     virtual double getArea() const = 0;
