@@ -21,23 +21,25 @@ bool sortByArea(std::shared_ptr<Shape> first, std::shared_ptr<Shape> second)
     return (first->getArea() < second->getArea());
 }
 
-bool perimeterBiggerThan20(std::shared_ptr<Shape> s)
-{
-    if(s)
-    {
-        return (s->getPerimeter() > 20);
-    }
-    return false;
-}
 
-bool areaLessThan10(std::shared_ptr<Shape> s)
-{
-    if(s)
-    {
-        return (s->getArea() < 10);
-    }
-    return false;
-}
+//bool perimeterBiggerThan20(std::shared_ptr<Shape> s)
+//{
+//    if(s)
+//    {
+//        return (s->getPerimeter() > 20);
+//    }
+//    return false;
+//}
+
+//bool areaLessThan10(std::shared_ptr<Shape> s)
+//{
+//    if(s)
+//    {
+//        return (s->getArea() < 10);
+//    }
+//    return false;
+//}
+
 
 void printCollectionElements(const Collection& collection)
 {
@@ -62,7 +64,7 @@ void printAreas(const Collection& collection)
 }
 
 void findFirstShapeMatchingPredicate(const Collection& collection,
-                                     bool (*predicate)(std::shared_ptr<Shape> s),
+                                     std::function<bool (std::shared_ptr<Shape> s)> predicate,
                                      std::string info)
 {
     auto iter = std::find_if(collection.begin(), collection.end(), predicate);
@@ -112,8 +114,14 @@ int main()
     delete rectangle;
 //    shapes.emplace_back(std::move(rectangle));
 
+    int x = 15;
+    auto perimeterBiggerThan20 = [](std::shared_ptr<Shape> s){ if(s) { return (s->getPerimeter() > 20); } return false; };
+    auto areaLessThanX = [x](std::shared_ptr<Shape> s){ if(s) { return (s->getArea() < x); } return false; };
+    //auto areaLessThan10 = [](std::shared_ptr<Shape> s){ if(s) { return (s->getArea() < 10); } return false; };
+
+
     findFirstShapeMatchingPredicate(shapes, perimeterBiggerThan20, "perimeter bigger than 20");
-    findFirstShapeMatchingPredicate(shapes, areaLessThan10, "area less than 10");
+    findFirstShapeMatchingPredicate(shapes, areaLessThanX, "area less than 10");
 
     cout << "alignof circle" << alignof(Circle) << std::endl;
 
